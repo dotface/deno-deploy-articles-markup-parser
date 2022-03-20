@@ -16,9 +16,12 @@ router.post("/", async ({ request, response }) => {
     content = value.content || "";
   }
 
-  let result = parser.annotations(content);
-  result = parser.images(result);
-  result = await parser.links(result);
+  let result = parser.annotations(content).images(result);
+  try {
+    result = await parser.links(result);
+  } catch (e) {
+    console.error(e);
+  }
 
   response.body = JSON.stringify({ content: result });
 });
