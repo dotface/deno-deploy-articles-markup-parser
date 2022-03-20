@@ -24,6 +24,8 @@ router.post("/", async ({ request, response }) => {
     console.error(e);
   }
 
+  result = parser.etc(result);
+
   response.body = JSON.stringify({ content: result });
 });
 
