@@ -26,7 +26,6 @@ router.post("/", async ({ request, response }) => {
 const app = new Application();
 app.use(oakCors());
 app.use(router.routes());
-app.use(router.allowedMethods());
 
 app.addEventListener("listen", (e) => console.log("Listening on http://localhost:8080"));
 await app.listen({ port: 8080 });
