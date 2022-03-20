@@ -1,10 +1,10 @@
-# CMS parser for dotface
+# dotface articles parser on [deno deploy]("https://dash.deno.com")
 
 ### how to use
-
-1. create a file named `input.md` with article content.
-2. run a command
-    ```bash
-    deno run parser.ts
-    ```
-3. check an output file named `output.md`
+```javascript
+const markupParsed = await fetch(deno_deploy_url, {
+  method: 'POST',
+  body: JSON.stringify({ content: "article text" }),
+  headers: { "Content-Type": "application/json" }
+});
+```
