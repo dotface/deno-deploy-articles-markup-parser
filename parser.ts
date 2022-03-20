@@ -12,6 +12,7 @@ export const links = async (content: string) => {
       console.log(pageContent);
       const doc: any = new DOMParser().parseFromString(pageContent, "text/html");
       const titles = doc.querySelectorAll("title");
+      console.log(titles);
       const title = titles[titles.length - 1].textContent.trim();
       _content = _content.replace(regex, `<a href="$2" title="${title}">$1</a>`);
     }
