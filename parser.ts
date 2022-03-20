@@ -1,5 +1,3 @@
-import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.21-alpha/deno-dom-wasm.ts";
-
 export const links = async (content: string) => {
   let _content = content;
   const regex = /\[(.+)\]\("(.+)"\)/;
@@ -9,11 +7,14 @@ export const links = async (content: string) => {
     match = regex.exec(_content);
     if (match) {
       const pageContent = await fetch(match[2]).then((res) => res.text());
-      const doc: any = new DOMParser().parseFromString(pageContent, "text/html");
-      const titles = doc.querySelectorAll("title");
-      console.log(titles);
-      const title = titles[titles.length - 1].textContent.trim();
-      _content = _content.replace(regex, `<a href="$2" title="${title}">$1</a>`);
+      const titleRegex = /\<title\>(.+)\<\/title\>/;
+      const titles = titleRegex.exec(pageContent);
+      if (titles?.length) {
+        const title = titles[1];
+        _content = _content.replace(regex, `<a href="$2" title="${title}">$1</a>`);
+      } else {
+        _content = _content.replace(regex, `<a href="$2" title="">$1</a>`);
+      }
     }
   } while (match);
 
