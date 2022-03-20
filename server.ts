@@ -4,6 +4,10 @@ import { oakCors } from "https://deno.land/x/cors/mod.ts";
 import * as parser from "./parser.ts";
 
 const router = new Router();
+router.get("/", () => {
+  return "hello world";
+});
+
 router.post("/", async ({ request, response }) => {
   const requestBody = request.body(); // content type automatically detected
   let content = "";
