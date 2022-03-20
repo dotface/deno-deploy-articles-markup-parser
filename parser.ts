@@ -1,6 +1,6 @@
 export const links = async (content: string) => {
   let _content = content;
-  const regex = /\[(.+)\]\("(.+)"\)/;
+  const regex = /\[(.+)\]\("{0,1}(.+)"{0,1}\)/;
 
   let match = null;
   do {
