@@ -4,8 +4,8 @@ import { oakCors } from "https://deno.land/x/cors/mod.ts";
 import * as parser from "./parser.ts";
 
 const router = new Router();
-router.get("/", () => {
-  return "hello world";
+router.get("/", (ctx) => {
+  ctx.response.body = "Hello world!";
 });
 
 router.post("/", async ({ request, response }) => {
@@ -26,4 +26,7 @@ router.post("/", async ({ request, response }) => {
 const app = new Application();
 app.use(oakCors());
 app.use(router.routes());
+app.use(router.allowedMethods());
+
+app.addEventListener("listen", (e) => console.log("Listening on http://localhost:8080"));
 await app.listen({ port: 8080 });
