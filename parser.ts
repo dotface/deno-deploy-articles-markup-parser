@@ -8,16 +8,11 @@ export const links = async (content: string) => {
   do {
     match = regex.exec(_content);
     if (match) {
-      try {
-        const pageContent = await fetch(match[2]).then((res) => res.text());
-        const doc: any = new DOMParser().parseFromString(pageContent, "text/html");
-        const titles = doc.querySelectorAll("title");
-        const title = titles[titles.length - 1].textContent.trim();
-        _content = _content.replace(regex, `<a href="$2" title="${title}">$1</a>`);
-      } catch (e) {
-        console.log("fetch error");
-        console.error(e);
-      }
+      const pageContent = await fetch(match[2]).then((res) => res.text());
+      const doc: any = new DOMParser().parseFromString(pageContent, "text/html");
+      const titles = doc.querySelectorAll("title");
+      const title = titles[titles.length - 1].textContent.trim();
+      _content = _content.replace(regex, `<a href="$2" title="${title}">$1</a>`);
     }
   } while (match);
 
