@@ -1,8 +1,8 @@
 export const etc = (content: string): string => {
   let _content = content;
-  const regexForSingle = /[‘|’]/gm;
+  const regexForSingle = /[‘’]/gm;
   _content = _content.replaceAll(regexForSingle, "'");
-  const regexForDouble = /[“|”]/gm;
+  const regexForDouble = /[“”]/gm;
   _content = _content.replaceAll(regexForDouble, `"`);
   const regexForWhitespace = /\n\n\n/gm;
   _content = _content.replaceAll(regexForWhitespace, `\n\n`);
