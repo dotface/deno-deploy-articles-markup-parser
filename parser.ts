@@ -9,7 +9,6 @@ export const links = async (content: string) => {
     match = regex.exec(_content);
     if (match) {
       const pageContent = await fetch(match[2]).then((res) => res.text());
-      console.log(pageContent);
       const doc: any = new DOMParser().parseFromString(pageContent, "text/html");
       const titles = doc.querySelectorAll("title");
       console.log(titles);
