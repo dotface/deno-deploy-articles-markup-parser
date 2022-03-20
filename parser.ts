@@ -6,11 +6,17 @@ export const links = async (content: string) => {
   do {
     match = regex.exec(_content);
     if (match) {
-      const pageContent = await fetch(match[2]).then((res) => res.text());
+      let title = "";
+      let url = match[2] as string;
+      if (url.startsWith("/")) {
+        url = `https://articles.dotface.kr${url}`;
+      }
+
+      const pageContent = await fetch(url).then((res) => res.text());
       const titleRegex = /\<title\>(.+)\<\/title\>/;
       const titles = titleRegex.exec(pageContent);
       if (titles?.length) {
-        const title = titles[1];
+        title = titles[1];
         _content = _content.replace(regex, `<a href="$2" title="${title}">$1</a>`);
       } else {
         _content = _content.replace(regex, `<a href="$2" title="">$1</a>`);
