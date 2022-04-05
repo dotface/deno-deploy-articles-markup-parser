@@ -16,8 +16,8 @@ router.post("/", async ({ request, response }) => {
     content = value.content || "";
   }
 
-  let result = parser.annotations(content);
-  result = parser.images(result);
+  let result = parser.images(parser.annotations(parser.lineBreaks(content)));
+
   try {
     result = await parser.links(result);
   } catch (e) {
